@@ -1,11 +1,12 @@
 class Human {
-    constructor(age, sex, ageOfReproduction, maxAgeOfReproduction, ageOfDeath) {
+    constructor(age, sex, ageOfReproduction, maxAgeOfReproduction, ageOfDeath, maxChildren) {
         this.age = age;
         this.sex = sex;
         this.minAgeOfReproduction = ageOfReproduction;
         this.maxAgeOfReproduction = maxAgeOfReproduction;
         this.ageOfDeath = ageOfDeath;
         this.childrenCounter = 0;
+        this.maxChildren = maxChildren;
     }
 
     birthday() {
@@ -13,7 +14,7 @@ class Human {
     }
 
     static withRandomSex(age, ...extra) {
-        if (!age) {
+        if (age !== 0) {
             age = Math.floor(Math.random() * 100 + 1)
         }
         return new Human(age, Math.random() < 0.5 ? "men" : "woman", ...extra)
@@ -45,15 +46,16 @@ class Human {
     }
 
     get gaveBirth() {
-        return this.childrenCounter >= 2;
+        return this.childrenCounter <= this.maxChildren;
     }
 }
 
 class Population {
-    constructor(minimumAgeOfReproduction, maximumAgeOfReproduction, avergageAgeOfDeath) {
+    constructor(minimumAgeOfReproduction, maximumAgeOfReproduction, avergageAgeOfDeath, amountChildren) {
         this.minimumAgeOfReproduction = minimumAgeOfReproduction;
         this.maximumAgeOfReproduction = maximumAgeOfReproduction;
         this.avergageAgeOfDeath = avergageAgeOfDeath;
+        this.howManyChildrenCanACoupleGet = amountChildren;
 
         /**
          * @type {Human[]}
@@ -67,7 +69,8 @@ class Population {
                 null,
                 this.minimumAgeOfReproduction,
                 this.maximumAgeOfReproduction,
-                this.avergageAgeOfDeath
+                this.avergageAgeOfDeath,
+                this.howManyChildrenCanACoupleGet
             )
         )
     }
@@ -124,8 +127,8 @@ class Population {
 }
 
 
-function runSimmulation(population, miniumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath) {
-    const world = new Population(miniumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath);
+function runSimmulation(population, miniumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple) {
+    const world = new Population(miniumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple);
     world.addHumans(population);
     const populationSnapshots = [];
 
@@ -140,6 +143,12 @@ function runSimmulation(population, miniumAgeOfReproduction, maximumAgeOfReprodu
 }
 
 
-const result = runSimmulation(1000, 12, 51, 82);
+const result = runSimmulation(
+    1000,
+    12,
+    51,
+    82,
+    3
+);
 console.log(result);
 
