@@ -26,7 +26,7 @@ class Human {
      */
     reproduce(partner) {
         this.childrenCounter++;
-        return Human.withRandomSex(0)
+        return Human.withRandomSex(0, this.minAgeOfReproduction, this.maxAgeOfReproduction, this.ageOfDeath, this.maxChildren)
     }
 
     canGetAChildren() {
@@ -46,7 +46,7 @@ class Human {
     }
 
     get gaveBirth() {
-        return this.childrenCounter <= this.maxChildren;
+        return this.childrenCounter >= this.maxChildren;
     }
 }
 
@@ -56,6 +56,7 @@ class Population {
         this.maximumAgeOfReproduction = maximumAgeOfReproduction;
         this.avergageAgeOfDeath = avergageAgeOfDeath;
         this.howManyChildrenCanACoupleGet = amountChildren;
+        this.yearsPassed = 0;
 
         /**
          * @type {Human[]}
@@ -99,6 +100,7 @@ class Population {
     }
 
     passOneYear() {
+        this.yearsPassed++;
         for (let x = 0; x <= this.population.length - 1; x++) {
             const human = this.population[x];
             human.birthday();
@@ -130,25 +132,49 @@ class Population {
 function runSimmulation(population, miniumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple) {
     const world = new Population(miniumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple);
     world.addHumans(population);
-    const populationSnapshots = [];
 
 
     while (!world.isDistinct()) {
-        const snapshot = world.passOneYear();
-        const averageAge = snapshot.reduce((a, b) => a + b.age, 0) / snapshot.length;
-        console.log(averageAge);
+        world.passOneYear();
+        printSimmulation(world);
     }
 
-    return populationSnapshots;
+    return world.yearsPassed;
 }
 
+/**
+ * @param {Population} population
+ */
+function printSimmulation(population) {
+    const stats = {};
+    stats.year = population.yearsPassed
+    const men = population.population.filter(h => h.sex === "men");
+    const woman = population.population.filter(h => h.sex === "woman");
+    stats.population = {
+        men: men.length,
+        woman: woman.length,
+        total: population.population.length
+    };
+    stats.age = {
+        men: men.reduce((acc, h) => h.age + acc, 0) / men.length,
+        woman: woman.reduce((acc, h) => h.age + acc, 0) / woman.length,
+        total: population.population.reduce((acc, h) => h.age + acc, 0) / population.population.length
+    }
+    stats.reproduction = {
+        men: men.filter(h => h.canGetAChildren()).length,
+        woman: woman.filter(h => h.canGetAChildren()).length
+    }
+
+
+    console.log(stats);
+}
 
 const result = runSimmulation(
-    1000,
+    100,
     12,
     51,
-    82,
-    3
+    30,
+    2
 );
 console.log(result);
 
