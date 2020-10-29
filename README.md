@@ -10,7 +10,7 @@ The only reason I started with this project was a talk from Uncle Bob where he a
               population: 100,
               minimumAgeOfReproduction: 28,
               maximumAgeOfReproduction: 30,
-              ageOfDeath: 30,
+              averageAgeOfDeath: 30,
               childrenPerCouple: () => Math.floor(Math.random() * 3)
           });
       ```
