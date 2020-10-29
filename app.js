@@ -13,11 +13,11 @@ class Human {
         this.age++;
     }
 
-    static withRandomSex(age, ...extra) {
+    static withRandomSex(age, ageOfReproduction, maxAgeOfReproduction, ageOfDeath, maxChildren) {
         if (age !== 0) {
             age = Math.floor(Math.random() * 100 + 1)
         }
-        return new Human(age, Math.random() < 0.5 ? "men" : "woman", ...extra)
+        return new Human(age, Math.random() < 0.5 ? "men" : "woman", ageOfReproduction, maxAgeOfReproduction, ageOfDeath, maxChildren)
     }
 
     /**
@@ -129,14 +129,14 @@ class Population {
 }
 
 
-function runSimmulation(population, miniumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple) {
-    const world = new Population(miniumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple);
+function runSimmulation(population, minimumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple) {
+    const world = new Population(minimumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple);
     world.addHumans(population);
 
 
     while (!world.isDistinct()) {
         world.passOneYear();
-        printSimmulation(world);
+        printSimulation(world);
     }
 
     return world.yearsPassed;
@@ -145,7 +145,7 @@ function runSimmulation(population, miniumAgeOfReproduction, maximumAgeOfReprodu
 /**
  * @param {Population} population
  */
-function printSimmulation(population) {
+function printSimulation(population) {
     const stats = {};
     stats.year = population.yearsPassed
     const men = population.population.filter(h => h.sex === "men");
