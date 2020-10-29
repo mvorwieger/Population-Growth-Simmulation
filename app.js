@@ -171,8 +171,8 @@ function printSimmulation(population) {
 
 const result = runSimmulation(
     100,
-    12,
-    51,
+    28,
+    30,
     30,
     2
 );
