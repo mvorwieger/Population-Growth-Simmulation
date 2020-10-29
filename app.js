@@ -71,7 +71,7 @@ class Population {
                 this.minimumAgeOfReproduction,
                 this.maximumAgeOfReproduction,
                 this.avergageAgeOfDeath,
-                this.howManyChildrenCanACoupleGet
+                this.howManyChildrenCanACoupleGet()
             )
         )
     }
@@ -110,6 +110,7 @@ class Population {
 
                 if (partner) {
                     const children = human.reproduce(partner);
+                    children.maxChildren = this.howManyChildrenCanACoupleGet()
                     this.population.push(children);
                 }
             }
@@ -129,7 +130,7 @@ class Population {
 }
 
 
-function runSimmulation(population, minimumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple) {
+function runSimulation({population, minimumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple}) {
     const world = new Population(minimumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple);
     world.addHumans(population);
 
@@ -169,12 +170,13 @@ function printSimulation(population) {
     console.log(stats);
 }
 
-const result = runSimmulation(
-    100,
-    28,
-    30,
-    30,
-    2
-);
+const result = runSimulation({
+    population: 100,
+    minimumAgeOfReproduction: 28,
+    maximumAgeOfReproduction: 30,
+    ageOfDeath: 30,
+    childrenPerCouple: () => Math.floor(Math.random() * 3)
+});
+
 console.log(result);
 
