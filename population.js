@@ -6,7 +6,7 @@ class Population {
      * @param {number} minimumAgeOfReproduction
      * @param {number} maximumAgeOfReproduction
      * @param {number} averageAgeOfDeath
-     * @param {number} amountChildren
+     * @param {Function} amountChildren
      */
     constructor(id, minimumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, amountChildren) {
         this.id = id;
@@ -48,7 +48,7 @@ class Population {
         let foundPartner = null;
         for (const potentialPartner of this.population) {
             if (human.canReproduceWith(potentialPartner)) {
-                if (!foundPartner || foundPartner.age > potentialPartner.age) {
+                if (!foundPartner || foundPartner?.age > potentialPartner.age) {
                     foundPartner = potentialPartner;
                 }
             }
