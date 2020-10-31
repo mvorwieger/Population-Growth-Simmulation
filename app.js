@@ -36,14 +36,21 @@ function reduceStatisticsOfOnePopulationToLifetimeStatistics(statistics) {
 
 function run() {
     const statisticRepository = new InMemoryStaticRepository();
-
-    runMultipleSimulations(100, "myCoolSimulation", {
-        population: 100,
-        minimumAgeOfReproduction: 28,
+    const configuration = {
+        population: 10000,
+        minimumAgeOfReproduction: 18,
         maximumAgeOfReproduction: 30,
-        averageAgeOfDeath: 30,
+        averageAgeOfDeath: 80,
         childrenPerCouple: () => Math.floor(Math.random() * 3)
-    }, world => statisticRepository.save(Statistics.fromPopulation(world)));
+    };
+
+    runMultipleSimulations(1, "myCoolSimulation", configuration, world => {
+        process.stdout.write("\u001b[2J\u001b[0;0H");
+        console.clear();
+        console.log(configuration);
+        console.log(Statistics.fromPopulation(world));
+        statisticRepository.save(Statistics.fromPopulation(world))
+    });
 
     const reducedByYear = [];
 
