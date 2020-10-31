@@ -18,3 +18,4 @@ The only reason I started with this project was a talk from Uncle Bob where he a
       ![Statistics Example](./misc/statistics.gif)
 2. [ ] Currently, only the current state of a simulation is printed. I want to somehow track the progress of a population.
     + possible solution is to rewrite the print function to a function that just extracts the current stats and then save these stats somewhere.
+
