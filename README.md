@@ -4,7 +4,7 @@ The only reason I started with this project was a talk from Uncle Bob where he a
 
 ## Problems
 1. [ ] I haven't found a right configuration yet in which the population does go distinct after a while. It always seems to grow no matter what.
-    + one possible Solution I implemented was to generate the maximum amount of children a Human can get from 0 .. 4. this way Populations seemed to no longer life on forever with this Configuration:
+    + One possible Solution I implemented was to generate the maximum amount of children a Human can get from 0 .. 4. this way Populations seemed to no longer life on forever with this Configuration:
         ```js 
           runSimulation({
               population: 100,
@@ -14,5 +14,7 @@ The only reason I started with this project was a talk from Uncle Bob where he a
               childrenPerCouple: () => Math.floor(Math.random() * 3)
           });
       ```
-2. [ ] currently, only the current state of a simulation is printed. I want to somehow track the progress of a population.
+      + Never ending simulation:
+      ![Statistics Example](./misc/statistics.gif)
+2. [ ] Currently, only the current state of a simulation is printed. I want to somehow track the progress of a population.
     + possible solution is to rewrite the print function to a function that just extracts the current stats and then save these stats somewhere.
