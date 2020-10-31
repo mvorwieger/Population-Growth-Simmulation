@@ -1,5 +1,5 @@
 # Population Growth Simmulation
-This is a completely not scientifically way to Simulate the growth of a Population.
+This is a completely not scientifical simmulation of the growth of a population.
 The only reason I started with this project was a talk from Uncle Bob where he asked "How many Biological Parents do you have". 
 
 ## Problems
