@@ -1,5 +1,6 @@
+const InMemoryStaticRepository = require("./inMemoryStaticRepository");
 const Statistics = require("./statistics");
-const Population = require("./population.js");
+const Population = require("./population");
 
 function runSimulation(id, {population, minimumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple}, afterOneYear) {
     const world = new Population(id, minimumAgeOfReproduction, maximumAgeOfReproduction, averageAgeOfDeath, childrenPerCouple);
@@ -11,27 +12,47 @@ function runSimulation(id, {population, minimumAgeOfReproduction, maximumAgeOfRe
     }
 }
 
-const statisticRepository = {
-    _stats: [],
-    findAll: function () {
-        return this._stats;
-    },
-    save: function (s) {
-        if (!this._stats[s.populationId]) {
-            this._stats[s.populationId] = [];
-        }
-
-        this._stats[s.populationId].push(s);
+function runMultipleSimulations(times, prefixId, configuration, afterOneYear) {
+    for (let i = 0; i < times; i++) {
+        runSimulation(`${prefixId}_${i}`, configuration, afterOneYear);
     }
 }
 
-runSimulation("myCoolSimmulation_v1", {
-    population: 100,
-    minimumAgeOfReproduction: 28,
-    maximumAgeOfReproduction: 30,
-    averageAgeOfDeath: 30,
-    childrenPerCouple: () => Math.floor(Math.random() * 3)
-}, world => statisticRepository.save(Statistics.fromPopulation(world)));
+function analyseLifetimeStatistics(lifeTimesStatistics) {
+    const averageLifetime = lifeTimesStatistics.reduce((acc, current) => acc + current.lifetime, 0) / lifeTimesStatistics.length;
 
-console.dir(statisticRepository.findAll(), {depth: null});
+    return {
+        averageLifetime
+    }
+}
 
+function reduceStatisticsOfOnePopulationToLifetimeStatistics(statistics) {
+    const last = statistics[statistics.length - 1];
+
+    return {
+        lifetime: last.year
+    };
+}
+
+function run() {
+    const statisticRepository = new InMemoryStaticRepository();
+
+    runMultipleSimulations(100, "myCoolSimulation", {
+        population: 100,
+        minimumAgeOfReproduction: 28,
+        maximumAgeOfReproduction: 30,
+        averageAgeOfDeath: 30,
+        childrenPerCouple: () => Math.floor(Math.random() * 3)
+    }, world => statisticRepository.save(Statistics.fromPopulation(world)));
+
+    const reducedByYear = [];
+
+    for (const key of Object.keys(statisticRepository.findAll())) {
+        const statsOfAYear = statisticRepository.findAll()[key]
+        reducedByYear.push(reduceStatisticsOfOnePopulationToLifetimeStatistics(statsOfAYear));
+    }
+
+    console.log(analyseLifetimeStatistics(reducedByYear));
+}
+
+run();

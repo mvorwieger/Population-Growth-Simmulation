@@ -1,0 +1,24 @@
+{
+  "name": "population-growth-simmulation",
+  "version": "1.0.0",
+  "description": "This is a completely not scientifically way to Simulate the growth of a Population.\r The only reason I started with this project was a talk from Uncle Bob where he asked the question \"How many Biological Parents do you have\".",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvorwieger/Population-Growth-Simmulation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mvorwieger/Population-Growth-Simmulation/issues"
+  },
+  "homepage": "https://github.com/mvorwieger/Population-Growth-Simmulation#readme",
+  "dependencies": {
+    "node": "^15.0.1"
+  }
+}
