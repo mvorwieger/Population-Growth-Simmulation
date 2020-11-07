@@ -1,4 +1,5 @@
-const InMemoryStaticRepository = require("./inMemoryStaticRepository");
+const util = require("util");
+const InMemoryStatisticsRepository = require("./inMemoryStatisticsRepository");
 const Statistics = require("./statistics");
 const Population = require("./population");
 
@@ -34,8 +35,16 @@ function reduceStatisticsOfOnePopulationToLifetimeStatistics(statistics) {
     };
 }
 
+/**
+ * @param {Statistics} statistics
+ */
+function printStatistics(statistics) {
+    console.clear();
+    console.log(statistics);
+}
+
 function run() {
-    const statisticRepository = new InMemoryStaticRepository();
+    const statisticRepository = new InMemoryStatisticsRepository();
     const configuration = {
         population: 10000,
         minimumAgeOfReproduction: 18,
@@ -45,11 +54,8 @@ function run() {
     };
 
     runMultipleSimulations(1, "myCoolSimulation", configuration, world => {
-        process.stdout.write("\u001b[2J\u001b[0;0H");
-        console.clear();
-        console.log(configuration);
-        console.log(Statistics.fromPopulation(world));
-        statisticRepository.save(Statistics.fromPopulation(world))
+        printStatistics(Statistics.fromPopulation(world));
+        statisticRepository.save(Statistics.fromPopulation(world));
     });
 
     const reducedByYear = [];

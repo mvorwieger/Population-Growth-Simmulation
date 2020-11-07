@@ -1,4 +1,4 @@
-class InMemoryStaticRepository {
+class InMemoryStatisticsRepository {
     _stats = [];
 
     findAll() {
@@ -14,4 +14,4 @@ class InMemoryStaticRepository {
     }
 }
 
-module.exports = InMemoryStaticRepository
+module.exports = InMemoryStatisticsRepository
