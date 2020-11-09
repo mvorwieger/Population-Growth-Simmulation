@@ -62,6 +62,9 @@ class Population {
         return foundPartner;
     }
 
+    /**
+     * @returns {Human[]}
+     */
     passOneYear() {
         this.yearsPassed++;
         for (let x = 0; x <= this.population.length - 1; x++) {
@@ -88,6 +91,9 @@ class Population {
         return this.population;
     }
 
+    /**
+     * @returns {boolean}
+     */
     isDistinct() {
         return this.population.length <= 0;
     }
