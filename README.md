@@ -1,5 +1,5 @@
 # Population Growth Simmulation
-This is a completely not scientifically way to Simulate the growth of a Population.
+This is a completely not scientifical simmulation of the growth of a population.
 The only reason I started with this project was a talk from Uncle Bob where he asked "How many Biological Parents do you have". 
 
 ## Problems
@@ -17,5 +17,5 @@ The only reason I started with this project was a talk from Uncle Bob where he a
       + Never ending simulation:
       ![Statistics Example](./misc/statistics.gif)
 2. [ ] Currently, only the current state of a simulation is printed. I want to somehow track the progress of a population.
-    + possible solution is to rewrite the print function to a function that just extracts the current stats and then save these stats somewhere.
+    + Solution: created a `StatisticsRepository` that allows us to save a statistic and later on find all statistics that have the same `populationId`
 
