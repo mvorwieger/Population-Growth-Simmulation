@@ -1,4 +1,3 @@
-const util = require("util");
 const InMemoryStatisticsRepository = require("./inMemoryStatisticsRepository");
 const Statistics = require("./statistics");
 const Population = require("./population");

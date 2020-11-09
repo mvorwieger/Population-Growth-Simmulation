@@ -17,7 +17,8 @@ class Statistics {
         stats.population = {
             men: men.length,
             woman: woman.length,
-            total: population.population.length
+            total: population.population.length,
+            deaths: population.deadHumans.length
         };
         stats.age = {
             men: men.reduce((acc, h) => h.age + acc, 0) / men.length,

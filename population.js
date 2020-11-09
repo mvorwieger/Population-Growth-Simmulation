@@ -20,6 +20,11 @@ class Population {
          * @type {Human[]}
          */
         this.population = [];
+
+        /**
+         * @type {Human[]}
+         */
+        this.deadHumans = [];
     }
 
     addHuman() {
@@ -74,7 +79,8 @@ class Population {
             }
 
             if (human.isDead()) {
-                this.population.splice(x, 1);
+                const deadHuman = this.population.splice(x, 1);
+                this.deadHumans.push(deadHuman[0]);
                 x--;
             }
         }

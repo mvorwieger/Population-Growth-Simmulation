@@ -42,7 +42,7 @@ class Human {
      */
     reproduce(partner) {
         this.childrenCounter++;
-        return Human.withRandomSex(0, this.minAgeOfReproduction, this.maxAgeOfReproduction, this.ageOfDeath, this.maxChildren)
+        return Human.withRandomSex(0, this.minAgeOfReproduction, this.maxAgeOfReproduction, this.ageOfDeath, this.maxChildren);
     }
 
     /**
